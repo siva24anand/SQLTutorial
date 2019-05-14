@@ -10,9 +10,10 @@ primary key(Id))
 ----------------------------------------------------------
 
 select * from Customers
+select * from orders
 
 insert into Customers(name,age,address)
-values('anand123',34,'mcity');
+values('anand38',38,'mcity1');
 
 update Customers set age = 35 where id = 2
 ----------------------------------------------------------
@@ -39,6 +40,11 @@ alter table customers drop PK__Customer__3214EC072A390D9C
 alter table orders drop FK__ORDERS__CUSTOMER__145C0A3F
 alter table customers add id int identity not null 
 alter table customers add primary key (id)
+---
+alter table orders drop column id
+alter table orders drop PK__ORDERS__3214EC279DED611F
+alter table orders add id int identity
+alter table orders add primary key(id)
 ----------------------------------------------------------
 create view customersalary2k as 
 select id,name,salary from customers where salary > 2000
@@ -57,8 +63,8 @@ after insert, delete
 as
 begin
 set nocount on;
-insert into ORDERS(id,date,CUSTOMER_ID,AMOUNT) 
-select 1,GETDATE(),id,salary from inserted
+insert into ORDERS(date,CUSTOMER_ID,AMOUNT) 
+select GETDATE(),id,salary from inserted
 end
 go
 ----------------------------------------------------------
